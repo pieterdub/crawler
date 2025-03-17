@@ -22,7 +22,8 @@ defmodule Crawler.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.8"},
-      {:floki, "~> 0.34"}
+      {:floki, "~> 0.34"},
+      {:mox, "~> 1.0", only: :test}
     ]
   end
 end
