@@ -1,4 +1,13 @@
 defmodule Crawler.Utils do
+
+  def valid_uri?(uri) do
+    case URI.parse(uri) do
+      %URI{scheme: nil} -> false  # Invalid if no scheme
+      %URI{host: nil} -> false    # Invalid if no host
+      _ -> true
+    end
+  end
+
   def extract_domain(url) do
     URI.parse(url).host
   end
@@ -11,7 +20,9 @@ defmodule Crawler.Utils do
         URI.merge(base_url, url) |> to_string()
       end
 
-    String.trim_trailing(normalized, "/")  # Remove trailing slashes
+    normalized
+    |> String.trim_trailing("/")  # Remove trailing slashes
+    |> String.trim_trailing("#")  # Remove trailing hash
   end
 
   def valid_domain?(url, domain) do
